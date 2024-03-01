@@ -32,8 +32,20 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
     }else{
         newLikes.push(userId);
     }
+
+    savePost({postId:post.$id, userId})
+    setisSaved(true)
 };
-  const handleSavePost = () => {};
+  const handleSavePost = (e:React.MouseEvent) => {
+    e.stopPropagation()
+    const savedPostRecord = currentUser?.save.find((record:Models.Document)=>record.$id === post.$id)
+
+    if(savedPostRecord){
+        setisSaved(false)
+        deleteSavedPost(savedPostRecord.$id)
+    }
+    
+  };
   return (
     <div className="flex justify-between items-center z-20">
       <div className="flex gap-2 mr-5">
