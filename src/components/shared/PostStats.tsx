@@ -1,6 +1,7 @@
 import { useUserContext } from "@/context/AuthContext";
 import {
   useDeleteSavedPost,
+  useGetCurrentUser,
   useLikePost,
   useSavePost,
 } from "@/lib/react-query/queriesAndMutations";
@@ -21,21 +22,25 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const { mutate: savePost } = useSavePost();
   const { mutate: deleteSavedPost } = useDeleteSavedPost();
 
-  const { data: currentUser } = useUserContext();
+  const { data: currentUser } = useGetCurrentUser();
 
-  const handleLikePost = (e:React.MouseEvent) => {
-    e.stopPropagation()
-    let newLikes = [...likes]
-    const hasLiked = newLikes.includes(userId)
-    if(hasLiked){
-        newLikes = newLikes.filter((id)=>id!==userId);
-    }else{
-        newLikes.push(userId);
+  const handleLikePost = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+
+    let likesArray = [...likes];
+
+    if (likesArray.includes(userId)) {
+      likesArray = likesArray.filter((Id) => Id !== userId);
+    } else {
+      likesArray.push(userId);
     }
 
-    savePost({postId:post.$id, userId})
-    setisSaved(true)
-};
+    setLikes(likesArray);
+    likePost({ postId: post.$id, likesArray });
+  };
+
   const handleSavePost = (e:React.MouseEvent) => {
     e.stopPropagation()
     const savedPostRecord = currentUser?.save.find((record:Models.Document)=>record.$id === post.$id)
@@ -43,6 +48,9 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
     if(savedPostRecord){
         setisSaved(false)
         deleteSavedPost(savedPostRecord.$id)
+    }else{
+        savePost({postId:post.$id, userId})
+        setisSaved(true);
     }
     
   };
