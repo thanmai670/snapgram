@@ -1,4 +1,4 @@
-Checkout the Live Demo : snapgram-flame-six.vercel.app
+Checkout the Live Demo : [snapgram-flame-six.vercel.app](https://snapgram-flame-six.vercel.app/sign-in)
 
 
 # React + TypeScript + Vite
