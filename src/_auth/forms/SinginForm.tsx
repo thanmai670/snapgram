@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { Button } from "@/components/ui/button"
 
-import { SigninVaidation } from "@/lib/validation"
+import { SigninValidation } from "@/lib/validation"
 import Loader from "@/components/shared/Loader"
 import { useNavigate } from "react-router-dom";
 
@@ -26,8 +26,8 @@ const SigninForm = () => {
 
   const {mutateAsync:singInAccount} = useSignInAccount();
   
-  const form = useForm<z.infer<typeof SigninVaidation>>({
-    resolver: zodResolver(SigninVaidation),
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
     defaultValues: {
       email:"",
       password:"",
@@ -35,7 +35,7 @@ const SigninForm = () => {
   })
  
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SigninVaidation>) {
+  async function onSubmit(values: z.infer<typeof SigninValidation>) {
    
     // signin User 
     const session = await singInAccount({

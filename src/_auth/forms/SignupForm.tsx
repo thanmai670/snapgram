@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
-import { SignupVaidation } from "@/lib/validation"
+import { SignupValidation } from "@/lib/validation"
 import Loader from "@/components/shared/Loader"
 import { useNavigate } from "react-router-dom";
 
@@ -25,8 +25,8 @@ const SignupForm = () => {
 
   const {mutateAsync:singInAccount, isPending:isSigningIn} = useSignInAccount();
   
-  const form = useForm<z.infer<typeof SignupVaidation>>({
-    resolver: zodResolver(SignupVaidation),
+  const form = useForm<z.infer<typeof SignupValidation>>({
+    resolver: zodResolver(SignupValidation),
     defaultValues: {
       name: "",
       username: "",
@@ -36,7 +36,7 @@ const SignupForm = () => {
   })
  
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupVaidation>) {
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
     // create user
     const newUser = await createUserAccount(values);
     
