@@ -7,6 +7,7 @@ import Loader from "@/components/shared/Loader";
 
 const EditPost = () => {
   const { id } = useParams();
+  console.log(id);
   const { data: post, isLoading } = useGetPostById(id);
 
   if (isLoading)
