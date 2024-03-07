@@ -4,7 +4,7 @@ import { Outlet, Navigate } from "react-router-dom";
 const AuthLayout = () => {
 
   const isAuthenticated = false;
-  console.log(isAuthenticated);
+  
 
   return (
     <>
