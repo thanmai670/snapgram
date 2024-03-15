@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
+        DOCKER_USERNAME = credentials('${DOCKER_CREDENTIALS_ID}').username
+        DOCKER_PASSWORD = credentials('${DOCKER_CREDENTIALS_ID}').password
     }
     stages {
         stage('Install') {
@@ -28,9 +30,5 @@ pipeline {
                 }
             }
         }
-    }
-    environment {
-        DOCKER_USERNAME = credentials('${DOCKER_CREDENTIALS_ID}').username
-        DOCKER_PASSWORD = credentials('${DOCKER_CREDENTIALS_ID}').password
     }
 }
