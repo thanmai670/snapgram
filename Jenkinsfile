@@ -1,6 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Install and Build') {
+            steps {
+                script {
+                    docker.image('node:16-alpine').inside {
+                        sh 'npm install'
+                        sh 'npm run build'
+                    }
+                }
+            }
+        }
         stage('Install') {
             steps {
                 sh 'npm install'
