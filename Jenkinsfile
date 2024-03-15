@@ -21,7 +21,7 @@ pipeline {
                         // Assuming you have a Dockerfile, build your Docker image
                         sh 'docker build -t my-react-app:latest .'
                         // Push the Docker image to a registry (Docker Hub, for instance)
-                        sh 'docker push myusername/my-react-app:latest'
+                        sh 'docker push thanamibk/my-react-app:latest'
                         // Deploy to Kubernetes
                         sh 'kubectl apply -f k8s-deployment.yaml'
                     }
