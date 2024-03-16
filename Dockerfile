@@ -4,23 +4,35 @@ FROM node:16-alpine as build
 # Set working directory
 WORKDIR /app
 
+# Declare build-time environment variables
+ARG VITE_APPWRITE_PROJECT_ID
+ARG VITE_APPWRITE_URL
+ARG VITE_APPWRITE_STORAGE_ID
+ARG VITE_APPWRITE_DATABASE_ID
+ARG VITE_APPWRITE_SAVES_COLLECTION_ID
+ARG VITE_APPWRITE_POSTS_COLLECTION_ID
+ARG VITE_APPWRITE_USERS_COLLECTION_ID
+
+# Set environment variables for the build stage
+ENV VITE_APPWRITE_PROJECT_ID=$VITE_APPWRITE_PROJECT_ID \
+    VITE_APPWRITE_URL=$VITE_APPWRITE_URL \
+    VITE_APPWRITE_STORAGE_ID=$VITE_APPWRITE_STORAGE_ID \
+    VITE_APPWRITE_DATABASE_ID=$VITE_APPWRITE_DATABASE_ID \
+    VITE_APPWRITE_SAVES_COLLECTION_ID=$VITE_APPWRITE_SAVES_COLLECTION_ID \
+    VITE_APPWRITE_POSTS_COLLECTION_ID=$VITE_APPWRITE_POSTS_COLLECTION_ID \
+    VITE_APPWRITE_USERS_COLLECTION_ID=$VITE_APPWRITE_USERS_COLLECTION_ID
+
 # Copy package.json and package-lock.json (or yarn.lock) files
 COPY package*.json ./
-# Or if you use yarn, copy yarn files
-# COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN npm install
-# Or if you use yarn, run yarn install
-# RUN yarn install
 
 # Copy the rest of your application code
 COPY . .
 
 # Build the application
 RUN npm run build
-# Or if you use yarn, run yarn build
-# RUN yarn build
 
 # Step 2: Serve the application from Nginx
 FROM nginx:stable-alpine
