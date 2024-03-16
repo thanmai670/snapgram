@@ -2,7 +2,7 @@
 FROM node:16-alpine as build
 
 # Set working directory
-WORKDIR /src
+WORKDIR /app
 
 # Declare build-time environment variables
 ARG VITE_APPWRITE_PROJECT_ID
@@ -38,7 +38,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy built assets from 'build' stage to Nginx's serve directory
-COPY --from=build /src/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
