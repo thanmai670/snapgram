@@ -2,7 +2,7 @@
 FROM node:16-alpine as build
 
 # Set working directory
-WORKDIR /app
+WORKDIR /src
 
 # Declare build-time environment variables
 ARG VITE_APPWRITE_PROJECT_ID
