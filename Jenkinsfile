@@ -40,7 +40,7 @@ pipeline {
                         --build-arg VITE_APPWRITE_USERS_COLLECTION_ID=$VITE_APPWRITE_USERS_COLLECTION_ID
                         '''
                         // Push the Docker image to a registry
-                        sh 'docker push thanamibk/my-react-app:latest'
+                        sh 'docker push thanmaibk/my-react-app:latest'
                         // Deploy to Kubernetes
                         sh 'kubectl apply -f k8s-deployment.yaml'
                     }
