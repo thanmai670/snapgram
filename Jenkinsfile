@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        // Define environment variables here
+        
         VITE_APPWRITE_PROJECT_ID = credentials('VITE_APPWRITE_PROJECT_ID')
         VITE_APPWRITE_URL = credentials('VITE_APPWRITE_URL')
         VITE_APPWRITE_STORAGE_ID = credentials('VITE_APPWRITE_STORAGE_ID')
